@@ -174,17 +174,24 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     if db.lose_times > 0:
                         if random.random() < setting_rate:
                             db.dx = 1 - db.dx
-                elif db.bet_mode == "E":
-                    # 按11轮前的大小下注
+                
+                elif db.bet_mode == "EBA":
+                    # 按3轮前的大小下注，反向，B模式+A模式，n=3
                     result = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(11)
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(3)
                     )
                     dx = result.scalars().all()[-1]
-                    # if db.lose_times > 3:
-                        # db.dx = 1 - dx.dx
                     if db.lose_times > 0:
                         db.dx = 1 - dx.dx
 
+                elif db.bet_mode == "EAA":
+                    # 按3轮前的大小下注，反向，纯A模式，n=3
+                    result = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(3)
+                    )
+                    dx = result.scalars().all()[-1]
+                    db.dx = 1 - dx.dx
+                
                 # 计算下注金额
                 remaining_bouns = int(db.sum_losebonus / rate) + db.start_bonus * (
                     db.lose_times + 1
