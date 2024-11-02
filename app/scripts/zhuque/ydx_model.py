@@ -175,9 +175,9 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                         if random.random() < setting_rate:
                             db.dx = 1 - db.dx
                 elif db.bet_mode == "E":
-                    # 按12轮前的大小下注
+                    # 按11轮前的大小下注
                     result = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(12)
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(11)
                     )
                     dx = result.scalars().all()[-1]
                     # if db.lose_times > 3:
