@@ -10,7 +10,7 @@ services:
       - ./sessions:/app/sessions
     environment:
       - TZ=Asia/Shanghai
-      - GIT_REMOTE=https://github.com/yyned2501/tgbot-m.git
+      - GIT_REMOTE=https://github.com/brunuhville/tgbot-m.git
       - GIT_BRANCH=master
       - SUPERVISOR_USERNAME=admin
       - SUPERVISOR_PASSWORD=admin
