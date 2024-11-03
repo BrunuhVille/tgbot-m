@@ -175,8 +175,11 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                         if random.random() < setting_rate:
                             db.dx = 1 - db.dx
                 
-                elif db.bet_mode == "EBA":
-                    # 按3轮前的大小下注，反向，B模式+A模式，n=3
+                elif db.bet_mode == "EBAA":
+                    # B模式与A2模式 n1=15, n2=27, subcat1
+                    # 小类别1
+                    # prediction = 0 if sum_result == 1 else 1
+                    
                     result = await session.execute(
                         select(YdxHistory).order_by(desc(YdxHistory.id)).limit(3)
                     )
@@ -184,8 +187,11 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     if db.lose_times > 0:
                         db.dx = 1 - dx.dx
 
-                elif db.bet_mode == "EAA":
-                    # 按3轮前的大小下注，反向，纯A模式，n=3
+                elif db.bet_mode == "EAAA":
+                    # 仅A2模式 n1=9, n2=12, subcat2
+                    # 小类别2
+                    # prediction = 1 if sum_result == 1 else 0
+                    
                     result = await session.execute(
                         select(YdxHistory).order_by(desc(YdxHistory.id)).limit(3)
                     )
