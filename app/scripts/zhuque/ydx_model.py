@@ -221,9 +221,41 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     db.dx = dxpres
 
                 elif db.bet_mode == "EAC":
-                    # 仅A2模式 n1=9, n2=12, subcat2
+                    # A2模式+A3模式 n1=9, n2=12, subcat2
                     # 小类别2
-                    # prediction = 1 if sum_result == 1 else 0
+                    # A2模式 prediction = 1 if sum_result == 1 else 0
+                    # A3模式 return 0 if sum_result == 1 else 1
+                    
+                    result1 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
+                    )
+                    dx1 = result1.scalars().all()[-1]
+
+                    result2 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(2)
+                    )
+                    dx2 = result2.scalars().all()[-1]
+
+                    result3 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(3)
+                    )
+                    dx3 = result3.scalars().all()[-1]
+
+                    result4 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(4)
+                    )
+                    dx4 = result4.scalars().all()[-1]
+
+                    result5 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(5)
+                    )
+                    dx5 = result5.scalars().all()[-1]
+                   
+                    result6 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(6)
+                    )
+                    dx6 = result6.scalars().all()[-1]
+
                     
                     result9 = await session.execute(
                         select(YdxHistory).order_by(desc(YdxHistory.id)).limit(9)
@@ -234,14 +266,21 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                         select(YdxHistory).order_by(desc(YdxHistory.id)).limit(12)
                     )
                     dx12 = result12.scalars().all()[-1]   
+
+                    dxsum06 = dx1.dx + dx2.dx + dx3.dx + dx4.dx + dx5.dx + dx6.dx
                     
                     dxsum = dx9.dx + dx12.dx
                     dxpres = 0
                     if dxsum == 1:
                         dxpres = 1
                     
-                    db.dx = dxpres
-
+                    if db.lose_times == 0:
+                        db.dx = dxpres
+        
+                    elif dxsum06 == 0 or dxsum06 == 6:
+                        db.dx = 1 - dxpres
+                        
+                    else db.dx = dxpres
 
                 
                 # 计算下注金额
