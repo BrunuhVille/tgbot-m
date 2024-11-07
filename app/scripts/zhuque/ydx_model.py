@@ -280,7 +280,7 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     elif dxsum06 == 0 or dxsum06 == 6:
                         db.dx = 1 - dxpres
                         
-                    else db.dx = dxpres
+                    else: db.dx = dxpres
 
                 
                 # 计算下注金额
