@@ -276,7 +276,10 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     
                     if db.lose_times == 0:
                         db.dx = dxpres
-        
+
+                    elif db.lose_times == 1:
+                        db.dx = dxpres
+                    
                     elif dxsum06 == 0 or dxsum06 == 6:
                         db.dx = 1 - dxpres
                         
