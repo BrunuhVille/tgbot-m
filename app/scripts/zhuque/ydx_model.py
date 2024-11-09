@@ -57,7 +57,7 @@ async def zhuque_ydx_switch(client: Client, message: Message):
                         bonus = message.command[2]
                         if bonus.isdigit():
                             bonus = int(bonus)
-                            if 500 <= bonus < 100000:
+                            if 500 <= bonus < 200000:
                                 db.start_bonus = bonus
                                 await message.edit(
                                     f"底注 {db.start_bonus} 设置成功！。。。"
