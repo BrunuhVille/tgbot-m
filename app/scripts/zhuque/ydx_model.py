@@ -424,11 +424,11 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                         select(YdxHistory).order_by(desc(YdxHistory.id)).limit(27)
                     )
                     dx27 = result27.scalars().all()[-1]
-                    dx15 = result1.scalars().all()[14]
-                    dx12 = result1.scalars().all()[11]
-                    dx9 = result1.scalars().all()[8]
-                    dx2 = result1.scalars().all()[1]
-                    dx1 = result1.scalars().all()[0]
+                    dx15 = result27.scalars().all()[14]
+                    dx12 = result27.scalars().all()[11]
+                    dx9 = result27.scalars().all()[8]
+                    dx2 = result27.scalars().all()[1]
+                    dx1 = result27.scalars().all()[0]
 
                     t1 = dx15.dx * dx27.dx
                     t2 = dx12.dx * dx9.dx
