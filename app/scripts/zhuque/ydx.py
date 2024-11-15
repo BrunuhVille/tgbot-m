@@ -221,8 +221,8 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     await asyncio.sleep(1)
                     if "零食不足" in result_message.message:
                         bet_switch = 0
-                        logger.info(f"破产了")
-                        await app.send_message(TARGET, f"破产了")
+                        logger.info(f"【冰封王座】")
+                        await app.send_message(TARGET, f"【冰封王座】")
                         return
 
 
