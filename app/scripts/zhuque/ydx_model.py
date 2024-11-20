@@ -286,52 +286,6 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     else: db.dx = dxpres
 
                 
-                elif db.bet_mode == "EW5":
-                    
-                    # 计算 r15和r27的乘积为t1，r9与r12的乘积为t2，r1与r2的乘积t3
-                    # w5，如果和t1+t2+t3=2，预测为1，否则预测为0
-                    
-                    result9 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(9)
-                    )
-                    dx9 = result9.scalars().all()[-1]
-                    
-                    result12 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(12)
-                    )
-                    dx12 = result12.scalars().all()[-1]
-                    
-                    result15 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(15)
-                    )
-                    dx15 = result15.scalars().all()[-1]   
-                    
-                    result27 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(27)
-                    )
-                    dx27 = result27.scalars().all()[-1]   
-                    
-                    result1 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
-                    )
-                    dx1 = result1.scalars().all()[-1]   
-                    
-                    result2 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(2)
-                    )
-                    dx2 = result2.scalars().all()[-1]   
-                    
-                    t1 = dx15.dx * dx27.dx
-                    t2 = dx12.dx * dx9.dx
-                    t3 = dx1.dx * dx2.dx
-                    
-                    dxsum = t1+t2+t3
-                    w5 = 0
-                    if dxsum == 2:
-                        w5 = 1
-                        
-                    db.dx = w5
-
                 elif db.bet_mode == "EW507":
                     
                     # 计算 r15和r27的乘积为t1，r9与r15的乘积为t2，r1与r2的乘积t3
