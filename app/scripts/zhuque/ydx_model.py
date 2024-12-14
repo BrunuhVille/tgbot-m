@@ -202,14 +202,20 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     a = db.lose_times
                     
                     b = 2*a*a + a
-                    
-                    result9 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(b)
+                    result1 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
                     )
-                    dx9 = result9.scalars().all()[-1]
+                    dx1 = result1.scalars().all()[-1]   
                     
-                    db.dx = dx9.dx
-
+                    if db.lose_times > 0 :
+                        result9 = await session.execute(
+                            select(YdxHistory).order_by(desc(YdxHistory.id)).limit(b)
+                        )
+                        dx9 = result9.scalars().all()[-1]
+                        db.dx = dx9.dx
+                    else :
+                        db.dx = dx1.dx
+                        
                 elif db.bet_mode == "EAC":
                     # A2模式+A3模式 n1=9, n2=12, subcat2
                     # 小类别2
