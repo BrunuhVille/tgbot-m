@@ -198,31 +198,17 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     if db.lose_times > 0:
                         db.dx = dxpres
 
-                elif db.bet_mode == "EAAA":
-                    # 仅A2模式 n1=9, n2=12, subcat2
-                    # 小类别2
-                    # prediction = 1 if sum_result == 1 else 0
-
+                elif db.bet_mode == "EWQ":
                     a = db.lose_times
                     
-                    b = a*a
+                    b = 2*a*a + a
                     
                     result9 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(9)
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(b)
                     )
                     dx9 = result9.scalars().all()[-1]
-
-                    result12 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(12)
-                    )
-                    dx12 = result12.scalars().all()[-1]   
                     
-                    dxsum = dx9.dx + dx12.dx
-                    dxpres = 0
-                    if dxsum == 1:
-                        dxpres = 1
-                    
-                    db.dx = dxpres
+                    db.dx = dx9.dx
 
                 elif db.bet_mode == "EAC":
                     # A2模式+A3模式 n1=9, n2=12, subcat2
