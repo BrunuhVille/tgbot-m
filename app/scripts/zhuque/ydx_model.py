@@ -202,6 +202,10 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     # 仅A2模式 n1=9, n2=12, subcat2
                     # 小类别2
                     # prediction = 1 if sum_result == 1 else 0
+
+                    a = db.lose_times
+                    
+                    b = a*a
                     
                     result9 = await session.execute(
                         select(YdxHistory).order_by(desc(YdxHistory.id)).limit(9)
