@@ -259,8 +259,8 @@ async def zhuque_ydx_bet(client: Client, message: Message):
 
                     a = db.lose_times
                 
-                    b = 9*a*a + 7a
-                    c = 9*a*a - 7a
+                    b = 9*a*a + 7*a
+                    c = 9*a*a - 7*a
 
                     result1 = await session.execute(
                         select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
