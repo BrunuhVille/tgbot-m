@@ -216,6 +216,43 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     else :
                         db.dx = dx1.dx
                         
+                elif db.bet_mode == "QWE":
+                    # Algorithm 11: 失败阶段，如果w是奇数，预测当前对局为上(9w平方-w)局的游戏结果的相反结果，
+                    # 如果w是偶数，预测当前对局为上(9w平方+w)局的游戏结果的相同结果。
+
+                    # 失败阶段，记录连续失败次数w，如果w是奇数，预测当前对局为上(9w平方-w)局的游戏结果的相反结果，
+                    # 如果w是偶数，预测当前对局为上(9w平方+w)局的游戏结果的相同结果。
+                    # 如果本局预测胜利，下一局切换到开始阶段，如果失败，下一局继续使用失败阶段。
+                    
+                    a = db.lose_times
+                
+                    b = 9*a*a + a
+                    c = 9*a*a - a
+
+                    result1 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
+                    )
+                    dx1 = result1.scalars().all()[-1]
+                    
+                    resultb = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(b)
+                    )
+                    dxb = resultb.scalars().all()[-1]
+                    
+                    resultc = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(c)
+                    )
+                    dxc = resultc.scalars().all()[-1]
+                    
+                    if db.lose_times > 0 :
+                        if a%2 != 0 :
+                            db.dx = 1 - dxc.dx
+                        else :
+                            db.dx = dxb.dx
+                    else :
+                        db.dx = dx1.dx
+
+                
                 elif db.bet_mode == "EAC":
                     # A2模式+A3模式 n1=9, n2=12, subcat2
                     # 小类别2
