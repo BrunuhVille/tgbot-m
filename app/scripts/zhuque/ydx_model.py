@@ -197,24 +197,6 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     
                     if db.lose_times > 0:
                         db.dx = dxpres
-
-                elif db.bet_mode == "EWQ":
-                    a = db.lose_times
-                    
-                    b = 2*a*a + a
-                    result1 = await session.execute(
-                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
-                    )
-                    dx1 = result1.scalars().all()[-1]   
-                    
-                    if db.lose_times > 0 :
-                        result9 = await session.execute(
-                            select(YdxHistory).order_by(desc(YdxHistory.id)).limit(b)
-                        )
-                        dx9 = result9.scalars().all()[-1]
-                        db.dx = dx9.dx
-                    else :
-                        db.dx = dx1.dx
                         
                 elif db.bet_mode == "QWE":
                     # Algorithm 11: 失败阶段，如果w是奇数，预测当前对局为上(9w平方-w)局的游戏结果的相反结果，
