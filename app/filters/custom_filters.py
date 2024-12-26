@@ -51,8 +51,8 @@ async def yyz_bot_filter(_, __, m: Message):
 
 yyz_bot = create(yyz_bot_filter)
 
-#async def agsv_bot_filter(_, __, m: Message):
-    #return bool(m.from_user and m.from_user.is_bot and m.from_user.id == 6929566752)
+async def agsv_bot_filter(_, __, m: Message):
+    return bool(m.from_user and m.from_user.is_bot and m.from_user.id == 6929566752)
 
 
-# agsv_bot = create(agsv_bot_filter)
+agsv_bot = create(agsv_bot_filter)
