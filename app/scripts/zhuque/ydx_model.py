@@ -258,7 +258,105 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                     else :
                         db.dx = dx1.dx
 
+                elif db.bet_mode == "A1Q3C14":
+                    # Q3 Algorithm 1: 失败阶段，预测当前对局为上(9w平方+7w+14)局的游戏结果的相反结果
+
+                    # 如果本局预测胜利，下一局切换到开始阶段，如果失败，下一局继续使用失败阶段。
+                    
+                    a = db.lose_times
                 
+                    c = 9*a*a + 7*a +14
+
+                    result1 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
+                    )
+                    dx1 = result1.scalars().all()[-1]
+                    
+                    if a>0 :
+                        resultc = await session.execute(
+                            select(YdxHistory).order_by(desc(YdxHistory.id)).limit(c)
+                        )
+                        dxc = resultc.scalars().all()[-1]
+                    
+                    if db.lose_times > 0 :
+                        db.dx = 1 - dxc.dx
+                    else :
+                        db.dx = dx1.dx
+
+                elif db.bet_mode == "A10Q3C4":
+                    # Q3 Algorithm 10: 失败阶段，如果w是奇数，预测当前对局为上(9w平方+7w+4)局的游戏结果的相同结果，
+                    # 如果w是偶数，预测当前对局为上(9w平方-7w+4)局的游戏结果的相反结果。
+
+                    # 如果本局预测胜利，下一局切换到开始阶段，如果失败，下一局继续使用失败阶段。
+                    
+                    a = db.lose_times
+                    
+                    b = 9*a*a + 7*a +4
+                    
+                    c = 9*a*a - 7*a +4
+
+                    result1 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
+                    )
+                    dx1 = result1.scalars().all()[-1]
+                    
+                    if a>0 :
+                        
+                        resultb = await session.execute(
+                            select(YdxHistory).order_by(desc(YdxHistory.id)).limit(b)
+                        )
+                        dxb = resultb.scalars().all()[-1]
+                        
+                        resultc = await session.execute(
+                            select(YdxHistory).order_by(desc(YdxHistory.id)).limit(c)
+                        )
+                        dxc = resultc.scalars().all()[-1]
+                    
+                    if db.lose_times > 0 :
+                        if a%2 != 0 :
+                            db.dx = dxb.dx
+                        else :
+                            db.dx = 1 - dxc.dx
+                    else :
+                        db.dx = dx1.dx
+
+                elif db.bet_mode == "A12Q3C33":
+                    # Q3 Algorithm 12: 失败阶段，如果w是奇数，预测当前对局为上(9w平方-7w+33)局的游戏结果的相同结果，
+                    # 如果w是偶数，预测当前对局为上(9w平方+7w+33)局的游戏结果的相反结果。
+
+                    # 如果本局预测胜利，下一局切换到开始阶段，如果失败，下一局继续使用失败阶段。
+                    
+                    a = db.lose_times
+                    
+                    b = 9*a*a - 7*a +33
+                    
+                    c = 9*a*a + 7*a +33
+
+                    result1 = await session.execute(
+                        select(YdxHistory).order_by(desc(YdxHistory.id)).limit(1)
+                    )
+                    dx1 = result1.scalars().all()[-1]
+                    
+                    if a>0 :
+                        
+                        resultb = await session.execute(
+                            select(YdxHistory).order_by(desc(YdxHistory.id)).limit(b)
+                        )
+                        dxb = resultb.scalars().all()[-1]
+                        
+                        resultc = await session.execute(
+                            select(YdxHistory).order_by(desc(YdxHistory.id)).limit(c)
+                        )
+                        dxc = resultc.scalars().all()[-1]
+                    
+                    if db.lose_times > 0 :
+                        if a%2 != 0 :
+                            db.dx = dxb.dx
+                        else :
+                            db.dx = 1 - dxc.dx
+                    else :
+                        db.dx = dx1.dx
+                        
                 elif db.bet_mode == "ASD":
                     # Algorithm 9: 失败阶段，如果w是奇数，预测当前对局为上(9w平方+7w)局的游戏结果的相反结果，
                     # 如果w是偶数，预测当前对局为上(9w平方-7w)局的游戏结果的相同结果。
