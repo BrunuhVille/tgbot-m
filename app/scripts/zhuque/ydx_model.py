@@ -12,7 +12,9 @@ from app.models import ASession
 from app.models.ydx import YdxHistory, ZqYdx
 
 
-TARGET = -1001833464786
+TARGET = -1002262543959
+# TARGET = -1001833464786
+
 rate = 0.99
 dx_list = ["小", "大"]
 bs_list = ["s", "b"]
