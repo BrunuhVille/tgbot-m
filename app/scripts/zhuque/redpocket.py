@@ -18,6 +18,24 @@ redpockets = {}
 async def in_redpockets_filter(_, __, m: Message):
     return bool(m.text in redpockets)
 
+@app.on_message(filters.chat(TARGET) & filters.reply & filters.command("fdajie"))
+async def fdajie(client: Client, message: Message):
+    await message.delete()
+    count = int(message.command[1])
+    if len(message.command) > 2:
+        new_first_name = message.command[2]
+        new_last_name = ""
+    else:
+        new_first_name = message.reply_to_message.from_user.first_name
+        new_last_name = message.reply_to_message.from_user.last_name
+    first_name = client.me.first_name
+    last_name = client.me.last_name
+    await client.update_profile(new_first_name, new_last_name)
+    r_message = await message.reply_to_message.reply(f"/dajie {count}")
+    await asyncio.sleep(1)
+    await r_message.delete()
+    await client.update_profile(first_name, last_name)
+
 
 @app.on_message(
     filters.chat(TARGET)
