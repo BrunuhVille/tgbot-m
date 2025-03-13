@@ -17,8 +17,8 @@ redpockets = {}
 
 async def in_redpockets_filter(_, __, m: Message):
     return bool(m.text in redpockets)
-
-@app.on_message(filters.chat(TARGET) & filters.reply & filters.command("fdajie"))
+    
+@app.on_message(filters.chat(TARGET) & filters.reply & filters.me & filters.command("fdajie"))
 async def fdajie(client: Client, message: Message):
     await message.delete()
     count = int(message.command[1])
