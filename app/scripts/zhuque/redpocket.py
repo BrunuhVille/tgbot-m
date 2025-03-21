@@ -43,7 +43,7 @@ async def fdajie(client: Client, message: Message):
     await asyncio.sleep(1)
     await r_message.delete()
     await client.update_profile(first_name, last_name)  # 恢复名字
-    async for photo in client.get_chat_photos("977495459", 1):
+    async for photo in client.get_chat_photos(977495459, 1):
         await client.delete_profile_photos(photo.file_id)  # 删除头像
 
 
