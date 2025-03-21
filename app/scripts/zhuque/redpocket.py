@@ -32,6 +32,9 @@ async def fdajie(client: Client, message: Message):
     if not os.path.exists("downloads/photo.jpg"):  # 下载头像
         async for photo in client.get_chat_photos(BOT_ID, 1):
             await client.download_media(photo.file_id, file_name="photo.jpg")
+    if not os.path.exists("downloads/me.jpg"):  # 下载头像
+        async for photo in client.get_chat_photos("me", 1):
+            await client.download_media(photo.file_id, file_name="me.jpg")
     first_name = client.me.first_name
     last_name = client.me.last_name
     await client.update_profile(new_first_name, new_last_name)  # 更新名字
@@ -43,8 +46,8 @@ async def fdajie(client: Client, message: Message):
     await asyncio.sleep(1)
     await r_message.delete()
     await client.update_profile(first_name, last_name)  # 恢复名字
-    async for photo in client.get_chat_photos(977495459, 1):
-        await client.delete_profile_photos(photo.file_id)  # 删除头像
+    await client.set_profile_photo(photo="downloads/me.jpg")  # 更新头像
+
 
 
 @app.on_message(filters.me & filters.command("gphoto") & filters.reply)
