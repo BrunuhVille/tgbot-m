@@ -43,8 +43,28 @@ async def fdajie(client: Client, message: Message):
     await asyncio.sleep(1)
     await r_message.delete()
     await client.update_profile(first_name, last_name)  # 恢复名字
-    async for photo in client.get_chat_photos("me", 1):
+    async for photo in client.get_chat_photos("977495459", 1):
         await client.delete_profile_photos(photo.file_id)  # 删除头像
+
+
+@app.on_message(filters.me & filters.command("gphoto") & filters.reply)
+async def gphoto(client: Client, message: Message):
+    async for photo in client.get_chat_photos(message.reply_to_message.from_user.id, 1):
+        await client.download_media(photo.file_id, file_name="photo.jpg")
+    await message.edit("已获取目标用户头像")
+
+
+@app.on_message(filters.me & filters.command("sphoto"))
+async def sphoto(client: Client, message: Message):
+    await client.set_profile_photo(photo="downloads/photo.jpg")
+    await message.delete()
+
+
+@app.on_message(filters.me & filters.command("rphoto"))
+async def rphoto(client: Client, message: Message):
+    async for photo in client.get_chat_photos("me", 1):
+        await client.delete_profile_photos(photo.file_id)
+    await message.edit("已恢复头像")
 
 
 
