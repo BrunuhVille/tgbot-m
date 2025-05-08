@@ -557,6 +557,40 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                                 await app.send_message(TARGET, f"【又赚1个小目标】")
                                 return
 
+                
+                remaining_bouns22 = 50000000
+                
+                bet_counts22 = []
+                
+                axabc = 1 - db.dx
+                
+                # 计算每个下注金额按钮点击次数
+                logger.info(f"remaining_bouns22= {remaining_bouns22}")
+                for value in bet_values:
+                    count = remaining_bouns22 // value
+                    bet_counts22.append(count)
+                    remaining_bouns22 -= count * value
+
+                # 嵌套循环点击下注
+                for i, count in enumerate(bet_counts22):
+                    if count > 0:
+                        bet_value = bet_values[i]
+                        callback_data = f'{{"t":"{bs_list[axabc]}","b":{
+                            int(bet_value)},"action":"ydxxz"}}'
+                        logger.info(
+                            f"bet_value= {bet_value} count= {count} callback_data= {callback_data}"
+                        )
+                        for _ in range(count):
+                            result_message = await app.request_callback_answer(
+                                message.chat.id, message.id, callback_data
+                            )
+ 
+                            await asyncio.sleep(1)
+                            if "零食不足" in result_message.message:
+                                db.bet_switch = 0
+                                logger.info(f"【又赚1个小目标】")
+                                await app.send_message(TARGET, f"【又赚1个小目标】")
+                                return
 
 async def listofWinners_check(message: Message, target_username: str) -> bool:
     for entity in message.entities:
