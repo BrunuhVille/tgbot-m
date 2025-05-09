@@ -586,11 +586,11 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                             )
  
                             await asyncio.sleep(1)
-                            if "零食不足" in result_message.message:
-                                db.bet_switch = 0
-                                logger.info(f"【又赚1个小目标】")
-                                await app.send_message(TARGET, f"【又赚1个小目标】")
-                                return
+                            # if "零食不足" in result_message.message:
+                                # db.bet_switch = 0
+                                # logger.info(f"【又赚1个小目标】")
+                                # await app.send_message(TARGET, f"【又赚1个小目标】")
+                                # return
 
 async def listofWinners_check(message: Message, target_username: str) -> bool:
     for entity in message.entities:
