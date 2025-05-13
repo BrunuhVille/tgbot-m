@@ -558,7 +558,7 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                                 return
 
 
-                remaining_bouns22 = 4250000
+                remaining_bouns22 = 4500000
                 
                 bet_counts22 = []
                 
