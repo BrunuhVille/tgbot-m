@@ -1,7 +1,7 @@
 import os
 
 import redis
-from pyrogram import Client
+from kurigram import Client
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from app.libs.logs import logger
