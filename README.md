@@ -2,7 +2,7 @@ docker-compose.yml
 ```docker-compose.yml
 services:
   tgbot-m:
-    image: yyned2501/git-python:3.12
+    image: yyned2501/git-python:3.13
     container_name: tgbot-m
     volumes:
       - ./config:/app/config
