@@ -1,6 +1,6 @@
 import subprocess
 
-from pyrogram import Client
+from kurigram import Client
 
 from app.libs.logs import logger
 from app.config import setting
