@@ -5,8 +5,8 @@ import re
 from app import app, logger
 from app.config import setting
 from app.filters import custom_filters
-from kurigram import filters, Client
-from kurigram.types.messages_and_media import Message
+from pyrogram import filters, Client
+from pyrogram.types.messages_and_media import Message
 
 TARGET = -1001833464786
 start_bouns = 500
