@@ -1,4 +1,4 @@
-from kurigram import idle
+from pyrogram import idle
 
 from app import app, models, scripts
 
