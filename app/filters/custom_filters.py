@@ -1,5 +1,5 @@
-from pyrogram.types.messages_and_media import Message
-from pyrogram.filters import create
+from kurigram.types.messages_and_media import Message
+from kurigram.filters import create
 
 
 async def reply_to_me_filter(_, __, m: Message):
