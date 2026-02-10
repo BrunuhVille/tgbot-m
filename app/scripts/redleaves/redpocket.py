@@ -1,7 +1,7 @@
 import asyncio
 from random import randint
-from pyrogram.types.messages_and_media import Message
-from pyrogram import filters, Client
+from kurigram.types.messages_and_media import Message
+from kurigram import filters, Client
 
 from app import app, logger
 from app.filters import custom_filters
