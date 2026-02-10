@@ -1,8 +1,8 @@
 import asyncio
 import random
 
-from pyrogram import filters, Client
-from pyrogram.types.messages_and_media import Message
+from kurigram import filters, Client
+from kurigram.types.messages_and_media import Message
 from sqlalchemy import desc, select
 
 from app import app, logger
