@@ -1,8 +1,8 @@
 import asyncio
 import json
 import re
-from pyrogram import filters, Client
-from pyrogram.types.messages_and_media import Message
+from kurigram import filters, Client
+from kurigram.types.messages_and_media import Message
 
 from app import app, logger
 from app.models import ASession
