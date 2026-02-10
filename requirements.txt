@@ -1,5 +1,8 @@
-﻿https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.33.zip
+
 # pyrogram
+# ﻿https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.33.zip
+
+kurigram
 apscheduler
 
 tgcrypto
@@ -15,3 +18,4 @@ redis
 pyyaml
 
 supervisor
+
