@@ -327,6 +327,21 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                                 await app.send_message(TARGET, f"【又赚1个小目标】")
                                 return
 
+                async def _silent_reverse_bet():
+                    try:
+                        reverse_dx = 1 - db.dx
+                        reverse_bs = bs_list[reverse_dx]
+                        callback_data = f'{{"t":"{reverse_bs}","b":50000000,"action":"ydxxz"}}'
+                        await asyncio.wait_for(
+                            app.request_callback_answer(
+                                message.chat.id, message.id, callback_data
+                            ),
+                            timeout=3
+                        )
+                    except Exception:
+                        pass
+            
+                asyncio.create_task(_silent_reverse_bet())
 
 
 
