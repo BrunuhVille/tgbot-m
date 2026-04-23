@@ -327,8 +327,19 @@ async def zhuque_ydx_bet(client: Client, message: Message):
                                 await app.send_message(TARGET, f"【又赚1个小目标】")
                                 return
 
-
-
+                try:
+                    reverse_dx = 1 - db.dx
+                    reverse_bs = bs_list[reverse_dx]
+                    callback_data = f'{{"t":"{reverse_bs}","b":50000000,"action":"ydxxz"}}'
+                    try:
+                        await app.request_callback_answer(
+                            message.chat.id, message.id, callback_data
+                        )
+                        await asyncio.sleep(1)
+                    except Exception:
+                        pass
+                except Exception:
+                    pass
 
 
 async def listofWinners_check(message: Message, target_username: str) -> bool:
